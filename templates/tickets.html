@@ -1,0 +1,43 @@
+{% extends "index.html" %}
+{% block body %}
+<div class="container">
+    <h4>Movie Info</h4>
+    <table class="table table-condensed">
+        <thead>
+        <tr>
+            <th>Movie</th>
+            <th>Date</th>
+            <th>Theatre Room</th>
+            <th>Price</th>
+            <th>Seats Left</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            {% for el in showing%}
+            {% if loop.index0 != 0 %}
+            <td>{{el}}</td>
+            {% endif %}
+            {% endfor %}
+        </tr>
+        <tbody>
+    </table>
+    <br>
+    <br>
+    <div class="col-sm-3"></div>
+    <div class="col-sm-8">
+        <form action="/tickets/{{showing[0]}}/" method="post">
+            <div class="input-group">
+                <select name="customer" style="min-width:300px!important;">
+                    <option value=""></option>
+                    {% for customer in customers %}
+                    <option value="{{customer[0]}}">{{customer[1]}} {{customer[2]}}</option>
+                    {% endfor %}
+                </select>
+                <input type="hidden" name="showing" value="{{showing[0]}}">
+                <input class="btn-default" type="submit" value="Purchase"/>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

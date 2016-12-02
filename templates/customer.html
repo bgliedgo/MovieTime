@@ -1,0 +1,9 @@
+{% extends "index.html" %}
+{% block body %}
+<h3>Select Customer To View Profile:</h3>
+<ul>
+{% for customer in customers %}
+    <li><a href="/customer/{{customer[0]}}/">{{customer[1]}} {{customer[2]}}</li>
+{% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "index.html" %}
+{% block body %}
+<div class="container">
+    <h1>Showing Admin</h1>
+    <table class="table table-condensed">
+        <thead>
+        <tr>
+            <th>Customer ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Sex</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for customer in customers%}
+        <tr>
+            <td>{{customer[0]}}</td>
+            <td>{{customer[1]}}</td>
+            <td>{{customer[2]}}</td>
+            <td>{{customer[3]}}</td>
+            <td>{{customer[5]}}</td>
+            <td>
+                <form action="/staff/customers/" method="post">
+                    <input type="hidden" value="{{customer[0]}}" name="delete">
+                    <input class="btn-danger" type="submit" value="DELETE">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <h3>Add Customer:</h3>
+    <form action="/staff/customers/" method="post">
+        First Name: <input type="text" name="new_fname" value="">
+        Last Name: <input type="text" name="new_lname" value="">
+        Email: <input type="email" name="new_email" value="">
+        Sex: <input type="text" name="new_sex" value="" maxlength="1" style="width: 20px;">
+        <input class="btn-success" type="submit" value="Add">
+    </form>
+    <h3>Modify Customer:</h3>
+    <form action="/staff/customers/" method="post">
+        Customer:
+        <select name="edit_id">
+            <option value=""></option>
+            {% for customer in customers %}
+            <option value="{{customer[0]}}">{{customer[1]}} {{customer[2]}}</option>
+            {% endfor %}
+        </select>
+        New First Name: <input type="text" name="edit_fname" value="">
+        New Last Name: <input type="text" name="edit_lname" value="">
+        New Email: <input type="email" name="edit_email" value="">
+        New Sex: <input type="text" name="edit_sex" value="" maxlength="1" style="width: 20px;">
+        <input class="btn-warning" type="submit" value="Modify">
+    </form>
+</div>
+<br>
+<br>
+{% endblock %}

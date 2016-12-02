@@ -1,0 +1,34 @@
+{% extends "index.html" %}
+{% block body %}
+<h4>SQL Injection:</h4>
+<h6>Select a customer with their ID</h6>
+<form action="/sql_injection/" method="post">
+    <input type="text" name="sql" value="">
+    <input class="tn-default" type="submit" value="Submit">
+</form>
+
+<table class="table table-condensed">
+    <thead>
+    <tr>
+        <th>Customer ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Sex</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for d in data%}
+    <tr>
+        <td>{{d[0]}}</td>
+        <td>{{d[1]}}</td>
+        <td>{{d[2]}}</td>
+        <td>{{d[3]}}</td>
+        <td>{{d[5]}}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+
+{% endblock %}

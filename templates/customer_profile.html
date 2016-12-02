@@ -1,0 +1,54 @@
+{% extends "index.html" %}
+{% block body %}
+<br>
+<br>
+<div class="col-sm-3">
+    <div class="panel panel-default">
+        <div class="panel-heading"><h4>{{profile[1]}} {{profile[2]}}</h4></div>
+        <ul class="list-group">
+            <li class="list-group-item">Email: {{profile[3]}}</li>
+            <li class="list-group-item">Sex: {{profile[5]}}</li>
+            <li class="list-group-item">Movies Seen: {{movies|length}}</li>
+        </ul>
+    </div>
+</div>
+<div class="col-sm-9">
+    <div class="panel panel-default">
+        <div class="panel-heading"><h4>Movies Seen</h4></div>
+        <div class="panel-body">
+            <table class="table table-condensed">
+                <thead>
+                <tr>
+                    <th>Movie</th>
+                    <th>Date</th>
+                    <th>Price</th>
+                    <th>Rating</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for movie in movies %}
+                <tr>
+                    <td>{{movie[1]}}</td>
+                    <td>{{movie[2]}}</td>
+                    <td>{{movie[3]}}</td>
+                    <td>
+                        <form action="/customer/{{profile[0]}}/" method="post">
+                            <select name="rating" class="form-control" onchange="this.form.submit()">
+                                <option selected disabled>{{movie[4]}} Stars</option>
+                                <option value="1">1 Stars</option>
+                                <option value="2">2 Stars</option>
+                                <option value="3">3 Stars</option>
+                                <option value="4">4 Stars</option>
+                                <option value="5">5 Stars</option>
+                            </select>
+                            <input type="hidden" name="showing" value="{{movie[0]}}">
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

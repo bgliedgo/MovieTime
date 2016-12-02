@@ -1,0 +1,48 @@
+{% extends "index.html" %}
+{% block body %}
+<div class="container">
+    <h1>Theatre Room Admin</h1>
+    <table class="table table-condensed">
+        <thead>
+        <tr>
+            <th>Room ID</th>
+            <th>Capacity</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for room in rooms %}
+        <tr>
+            <td>{{room[0]}}</td>
+            <td>{{room[1]}}</td>
+            <td>
+                <form action="/staff/rooms/" method="post">
+                    <input type="hidden" value="{{room[0]}}" name="delete">
+                    <input class="btn-danger" type="submit" value="DELETE">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <h3>Add Theatre Room:</h3>
+    <form action="/staff/rooms/" method="post">
+        ID: <input type="text" name="new_id" value="">
+        Capacity: <input type="text" name="new_capacity" value="">
+        <input class="btn-success" type="submit" value="Add">
+    </form>
+    <h3>Modify Theatre Room:</h3>
+    <form action="/staff/rooms/" method="post">
+        Room: <select name="edit_id">
+            <option value=""></option>
+            {% for room in rooms %}
+            <option value="{{room[0]}}">{{room[0]}}</option>
+            {% endfor %}
+        </select>
+        New ID: <input type="text" name="edit_id_new" value="">
+        New Capacity: <input type="text" name="edit_capacity" value="">
+        <input class="btn-warning" type="submit" value="Modify">
+    </form>
+</div>
+<br>
+<br>
+{% endblock %}

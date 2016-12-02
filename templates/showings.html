@@ -1,0 +1,52 @@
+{% extends "index.html" %}
+{% block body %}
+<div class="container">
+    <form action="/" method="post">
+        Genre: <select name="genre">
+        <option value=""></option>
+        {% for genre in genres %}
+        <option value="{{genre[0]}}">{{genre[0]}}</option>
+        {% endfor %}
+    </select>
+        Date Range: <input type="date" name="b_date"> -
+        <input type="date" name="a_date">
+        Title: <input type="text" name="title" value="">
+        Not Full: <input type="checkbox" name="not_full" value="True">
+        <input class="btn-default" type="submit" value="Filter">
+    </form>
+    <br>
+    <table class="table table-condensed">
+        <thead>
+        <tr>
+            <th>Movie</th>
+            <th>Date</th>
+            <th>Theatre Room</th>
+            <th>Price</th>
+            <th>Seats Left</th>
+            <th>Buy Tickets</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for show in showings %}
+        <tr>
+            {% for el in show%}
+            {% if loop.index0 != 0 %}
+            <td>{{el}}</td>
+            {% endif %}
+            {% endfor %}
+            <td>
+                {% if show[5] > 0 %}
+                <form action="/tickets/{{show[0]}}/">
+                    <input class="btn-default" type="submit" value="Purchase"/>
+                </form>
+                {% else %}
+                NO SEATS
+                {% endif %}
+            </td>
+            <td></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

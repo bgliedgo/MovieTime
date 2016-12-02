@@ -1,0 +1,80 @@
+{% extends "index.html" %}
+{% block body %}
+<div class="container">
+    <h1>Showing Admin</h1>
+    <table class="table table-condensed">
+        <thead>
+        <tr>
+            <th>Showing ID</th>
+            <th>Date</th>
+            <th>Movie</th>
+            <th>Room Number</th>
+            <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for showing in showings %}
+        <tr>
+            <td>{{showing[0]}}</td>
+            <td>{{showing[1]}}</td>
+            <td>{{showing[2]}}</td>
+            <td>{{showing[3]}}</td>
+            <td>{{showing[4]}}</td>
+            <td>{{showing[5]}}</td>
+            <td>
+                <form action="/staff/showings/" method="post">
+                    <input type="hidden" value="{{showing[0]}}" name="delete">
+                    <input class="btn-danger" type="submit" value="DELETE">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <h3>Add Showing:</h3>
+    <form action="/staff/showings/" method="post">
+        Movie: <select name="new_movie">
+            <option value=""></option>
+            {% for movie in movies %}
+            <option value="{{movie[0]}}">{{movie[1]}}</option>
+            {% endfor %}
+        </select>
+        Date: <input type="datetime-local" name="new_date" style="width: 180px;">
+        Room: <select name="new_room">
+            <option value=""></option>
+            {% for room in rooms %}
+            <option value="{{room[0]}}">{{room[0]}}</option>
+            {% endfor %}
+        </select>
+        Price: <input type="text" name="new_price" value="" style="width: 100px;">
+        <input class="btn-success" type="submit" value="Add">
+    </form>
+    <h3>Modify Theatre Room:</h3>
+    <form action="/staff/showings/" method="post">
+        Showing ID:
+        <select name="edit_id">
+            <option value=""></option>
+            {% for showing in showings %}
+            <option value="{{showing[0]}}">{{showing[0]}}</option>
+            {% endfor %}
+        </select>
+        New Date: <input type="datetime-local" name="edit_date" style="width: 180px;">
+        New Movie: <select name="edit_movie">
+            <option value=""></option>
+            {% for movie in movies %}
+            <option value="{{movie[0]}}">{{movie[1]}}</option>
+            {% endfor %}
+        </select>
+        New Room: <select name="edit_room">
+            <option value=""></option>
+            {% for room in rooms %}
+            <option value="{{room[0]}}">{{room[0]}}</option>
+            {% endfor %}
+        </select>
+        New Price: <input type="text" name="edit_price" value="" style="width: 100px;">
+        <input class="btn-warning" type="submit" value="Modify">
+    </form>
+</div>
+<br>
+<br>
+{% endblock %}
